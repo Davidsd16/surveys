@@ -59,6 +59,53 @@ class Encuesta extends Database {
             ]);
         }
     }
+
+    public static function getPolls(){
+        // Inicializar un arreglo para almacenar las encuestas recuperadas de la base de datos
+        $polls = [];
     
+        // Crear una nueva instancia de la clase Database para manejar la conexión a la base de datos
+        $db = new Database();
     
+        // Ejecutar una consulta SQL para obtener todas las encuestas de la tabla 'polls'
+        $query = $db->connect()->query("SELECT * FROM polls");
+    
+        // Iterar sobre cada fila obtenida de la consulta y crear objetos Encuesta correspondientes
+        while ($r = $query->fetch(PDO::FETCH_ASSOC)) {
+            // Crear un objeto Encuesta a partir de un arreglo asociativo de datos
+            $poll = Encuesta::createFromArray($r);
+    
+            // Agregar la encuesta al arreglo de encuestas
+            array_push($polls, $poll);
+        }
+    
+        // Devolver el arreglo de encuestas
+        return $polls;
+    }
+    
+    public static function createFromArray(array $arr){
+        // Crear una nueva instancia de la clase Encuesta utilizando los datos proporcionados en el arreglo
+        $poll = new Encuesta($arr['title'], false);
+    
+        // Establecer el UUID de la encuesta utilizando el valor proporcionado en el arreglo
+        $poll->setUUID($arr['uuid']);
+    
+        // Establecer el ID de la encuesta utilizando el valor proporcionado en el arreglo
+        $poll->setID($arr['id']);
+    
+        // Devolver la instancia de Encuesta creada
+        return $poll;
+    }
+    
+    public function setUUID($value){
+        // Establecer el UUID de la encuesta utilizando el valor proporcionado
+        $this->uuid = $value;
+    }
+    
+    public function setID($value){
+        // Establecer el ID de la encuesta utilizando el valor proporcionado
+        $this->id = $value;
+    }
+    
+
 }
