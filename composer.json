@@ -1,0 +1,15 @@
+{
+    "name": "lenovo/encuestas",
+    "autoload": {
+        "psr-4": {
+            "Lenovo\\Encuestas\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "david",
+            "email": "davidsanchezdiaz72@gmail.com"
+        }
+    ],
+    "require": {}
+}
