@@ -30,7 +30,7 @@ class Encuesta extends Database {
     }
 
     public function save(){
-        
+
         // Preparar y ejecutar una consulta para insertar una nueva encuesta en la tabla 'polls'
         $query = $this->connect()->prepare("INSERT INTO polls(uuid, title) VALUES(:uuid, :title)");
         $query->execute([
@@ -47,5 +47,18 @@ class Encuesta extends Database {
         // Asignar el ID de la encuesta recién insertada al objeto Encuesta
         $this->id = $query->fetchColumn();
     }
+
+    public function insertOptions(array $options){
+        // Iterar sobre cada opción proporcionada y realizar una inserción en la tabla 'options'
+        foreach ($options as $option) {
+            // Preparar y ejecutar una consulta para insertar una nueva opción en la tabla 'options'
+            $query = $this->connect()->prepare("INSERT INTO options (poll_id, title, votes) VALUES(:poll_id, :title, 0)");
+            $query->execute([
+                'poll_id' => $this->id,
+                'title' => $option 
+            ]);
+        }
+    }
+    
     
 }
