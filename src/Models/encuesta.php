@@ -8,7 +8,8 @@ use PDO;
 class Encuesta extends Database {
 
     private string $uuid;
-    
+    private int $id;
+
     /**
      * Constructor de la clase Encuesta.
      * 
@@ -27,4 +28,24 @@ class Encuesta extends Database {
         // Se asigna un UUID único a la encuesta.
         $this->uuid = uniqid();
     }
+
+    public function save(){
+        
+        // Preparar y ejecutar una consulta para insertar una nueva encuesta en la tabla 'polls'
+        $query = $this->connect()->prepare("INSERT INTO polls(uuid, title) VALUES(:uuid, :title)");
+        $query->execute([
+            'uuid' => $this->uuid,
+            'title' => $this->title
+        ]);
+    
+        // Preparar y ejecutar una consulta para obtener el ID de la encuesta recién insertada
+        $query = $this->connect()->prepare("SELECT * FROM polls WHERE uuid = :uuid");
+        $query->execute([
+            'uuid' => $this->uuid,
+        ]);
+    
+        // Asignar el ID de la encuesta recién insertada al objeto Encuesta
+        $this->id = $query->fetchColumn();
+    }
+    
 }
