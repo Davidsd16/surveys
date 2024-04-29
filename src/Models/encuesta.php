@@ -110,7 +110,8 @@ class Encuesta extends Database {
         $db = new Database();
     
         // Preparar y ejecutar una consulta SQL para obtener la encuesta con el UUID especificado
-        $query = $db->connect()->prepare("SELECT * FROM polls WHERE uuid = :uuid");
+        $query = $db->connect()->prepare("SELECT * FROM polls 
+                                            WHERE uuid = :uuid");
         $query->execute(['uuid' => $uuid]);
     
         // Obtener el resultado de la consulta
@@ -130,8 +131,26 @@ class Encuesta extends Database {
         while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
             $poll->includeOption($result);
         }
+
+        return $poll;
     }
     
+    public function vote($optionsId){
+        // Preparar y ejecutar una consulta SQL para incrementar el contador de votos de la opción seleccionada
+        $query = $this->connect()->prepare("UPDATE options
+                                            SET votes = votes + 1 
+                                            WHERE id = :id");
+        
+        $query->execute(['id' => $optionsId]);
+    
+        // Buscar y recuperar la encuesta actualizada después del voto
+        $poll = Encuesta::find($this->uuid);
+    
+        // Devolver la encuesta actualizada con los votos reflejados
+        return $poll;
+    }
+    
+
     public function includeOption($arr){
         // Agregar una opción al arreglo de opciones de la encuesta
         array_push($this->options, $arr);
