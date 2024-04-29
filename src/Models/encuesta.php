@@ -150,6 +150,19 @@ class Encuesta extends Database {
         return $poll;
     }
     
+    public function getTotalVotes(){
+        // Inicializar una variable para almacenar el total de votos
+        $total = 0;
+    
+        // Iterar sobre cada opción de la encuesta y sumar los votos de cada opción al total
+        foreach ($this->options as $option) {
+            $total = $total + $option['votes'];
+        }
+    
+        // Devolver el total de votos acumulado
+        return $total;
+    }
+    
 
     public function includeOption($arr){
         // Agregar una opción al arreglo de opciones de la encuesta
