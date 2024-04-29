@@ -2,8 +2,9 @@
 
 namespace Lenovo\Encuestas\model;
 
-use Lenovo\Encuestas\model\Database;
 use PDO;
+use Exception;
+use Lenovo\Encuestas\model\Database;
 
 class Encuesta extends Database {
 
@@ -22,14 +23,19 @@ class Encuesta extends Database {
     {
         // Llama al constructor de la clase Database para establecer la conexión a la base de datos.
         parent::__construct();
-
+    
+        // Inicializa un arreglo vacío para almacenar las opciones de la encuesta.
+        $this->options = [];
+        
         // Genera un UUID único para la encuesta si $createUUID es true.
         if ($createUUID) {
             $this->uuid = uniqid();
+        } else {
+            // Si $createUUID es false, lanzar una excepción indicando que se requiere un UUID único.
+            throw new Exception('Error: Se requiere un UUID único para la encuesta.');
         }
-        // Se asigna un UUID único a la encuesta.
-        $this->uuid = uniqid();
     }
+    
 
     public function save(){
 
