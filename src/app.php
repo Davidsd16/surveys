@@ -1,13 +1,23 @@
 <?php
 
-// Verificar si el parámetro 'view' está presente en la URL
+
 if (isset($_GET['view'])) {
-    // Si 'view' está presente, asignar su valor a la variable $view
+    // Obtener el valor del parámetro 'view' de la URL
     $view = $_GET['view'];
 
-    // Incluir el archivo correspondiente según el valor de 'view' proporcionado en la URL
-    require 'src/' . $view . '.php';
+    // Construir la ruta al archivo PHP correspondiente dentro del directorio 'src'
+    $filePath = 'src/' . $view . '.php';
+
+    // Verificar si el archivo PHP existe en la ruta especificada
+    if (file_exists($filePath)) {
+        // Si el archivo existe, incluirlo en el script actual
+        require $filePath;
+    } else {
+        // Si el archivo no existe, mostrar un mensaje de error
+        echo "Error: Archivo no encontrado";
+    }
 } else {
-    // Si 'view' no está presente en la URL, cargar el archivo 'home.php' por defecto
+    // Si el parámetro 'view' no está presente en la URL, cargar el archivo 'home.php' por defecto
     require 'src/home.php';
 }
+
