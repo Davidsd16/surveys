@@ -190,4 +190,8 @@ class Encuesta extends Database {
     public function getTitle() {
         return $this->title;
     }
+
+    public function getUUID() {
+        return $this->uuid;
+    }
 }

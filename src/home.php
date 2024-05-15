@@ -20,7 +20,7 @@
 
     // Itera sobre las encuestas y muestra sus títulos
     foreach ($polls as $poll) {
-        echo "<div>{$poll->getTitle()}</div>"; // Corrige el método getTitle()
+        echo "<div><a href='?view=view&id={$poll->getUUID()}'>{$poll->getTitle()}</a></div>"; // Corrige el método getTitle()
     }
     ?>
 </body>
