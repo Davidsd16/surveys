@@ -4,6 +4,7 @@ namespace Lenovo\Encuestas\model;
 
 use PDO;
 use Exception;
+use PDOException;
 use Lenovo\Encuestas\model\Database;
 
 class Encuesta extends Database {
@@ -68,28 +69,38 @@ class Encuesta extends Database {
         }
     }
 
-    public static function getPolls(){
+    public static function getPolls() {
         // Inicializar un arreglo para almacenar las encuestas recuperadas de la base de datos
         $polls = [];
-
-        // Crear una nueva instancia de la clase Database para manejar la conexión a la base de datos
-        $db = new Database();
-
-        // Ejecutar una consulta SQL para obtener todas las encuestas de la tabla 'polls'
-        $query = $db->connect()->query("SELECT * FROM polls");
-
-        // Iterar sobre cada fila obtenida de la consulta y crear objetos Encuesta correspondientes
-        while ($r = $query->fetch(PDO::FETCH_ASSOC)) {
-            // Crear un objeto Encuesta a partir de un arreglo asociativo de datos
-            $poll = Encuesta::createFromArray($r);
-
-            // Agregar la encuesta al arreglo de encuestas
-            array_push($polls, $poll);
+    
+        try {
+            // Crear una nueva instancia de la clase Database para manejar la conexión a la base de datos
+            $db = new Database();
+    
+            // Ejecutar una consulta SQL para obtener todas las encuestas de la tabla 'polls'
+            $query = $db->connect()->query("SELECT * FROM polls");
+    
+            // Iterar sobre cada fila obtenida de la consulta y crear objetos Encuesta correspondientes
+            while ($r = $query->fetch(PDO::FETCH_ASSOC)) {
+                // Crear un objeto Encuesta a partir de un arreglo asociativo de datos
+                $poll = Encuesta::createFromArray($r);
+    
+                // Agregar la encuesta al arreglo de encuestas
+                array_push($polls, $poll);
+            }
+    
+        } catch (PDOException $e) {
+            // Manejar cualquier excepción relacionada con la base de datos
+            echo 'Error al obtener encuestas: ' . $e->getMessage();
+        } catch (Exception $e) {
+            // Manejar otras excepciones generales
+            echo 'Error: ' . $e->getMessage();
         }
-
+    
         // Devolver el arreglo de encuestas
         return $polls;
     }
+    
 
     public static function createFromArray(array $arr){
         // Crear una nueva instancia de la clase Encuesta utilizando los datos proporcionados en el arreglo
@@ -180,4 +191,7 @@ class Encuesta extends Database {
         $this->id = $value;
     }
 
+    public function getTitle() {
+        return $this->title;
+    }
 }

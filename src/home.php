@@ -7,6 +7,20 @@
 </head>
 <body>
     <h1>Home</h1>
-    <a href="?view=create">Create new poll</a>
+    
+        <?php
+/*
+        // require_once 'src/Model/Encuesta.php';
+        use Lenovo\Encuestas\model\Encuesta;
+
+        $polls = new Encuesta($option);
+
+        $polls = Encuesta::getPolls();
+
+        foreach ($polls as $poll) {
+            echo "<div> {$poll->getTiitle()} </div>";
+        }
+        */
+        ?>
 </body>
 </html>
