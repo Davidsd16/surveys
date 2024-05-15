@@ -8,19 +8,20 @@
 <body>
     <h1>Home</h1>
     
-        <?php
-/*
-        // require_once 'src/Model/Encuesta.php';
-        use Lenovo\Encuestas\model\Encuesta;
+    <?php
+    // Importa la clase Encuesta desde el espacio de nombres correcto
+    use Lenovo\Encuestas\Model\Encuesta;
 
-        $polls = new Encuesta($option);
+    // Incluye el archivo que define la clase Encuesta si no lo has hecho previamente
+    require_once 'vendor/autoload.php';
 
-        $polls = Encuesta::getPolls();
+    // Obtiene las encuestas utilizando el método estático getPolls
+    $polls = Encuesta::getPolls();
 
-        foreach ($polls as $poll) {
-            echo "<div> {$poll->getTiitle()} </div>";
-        }
-        */
-        ?>
+    // Itera sobre las encuestas y muestra sus títulos
+    foreach ($polls as $poll) {
+        echo "<div>{$poll->getTitle()}</div>"; // Corrige el método getTitle()
+    }
+    ?>
 </body>
 </html>

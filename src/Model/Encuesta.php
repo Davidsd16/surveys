@@ -31,13 +31,9 @@ class Encuesta extends Database {
         // Genera un UUID único para la encuesta si $createUUID es true.
         if ($createUUID) {
             $this->uuid = uniqid();
-        } else {
-            // Si $createUUID es false, lanzar una excepción indicando que se requiere un UUID único.
-            throw new Exception('Error: Se requiere un UUID único para la encuesta.');
         }
     }
     
-
     public function save(){
 
         // Preparar y ejecutar una consulta para insertar una nueva encuesta en la tabla 'polls'

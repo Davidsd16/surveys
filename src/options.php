@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_P
         $survey->insertOptions($options);
 
         // Redirige al usuario a una página de éxito o a la página principal después de procesar el formulario
-        header("Location: src/home.php");
+        header("Location: ?view=home");
         exit(); // Detiene la ejecución del script después de redirigir para evitar ejecución adicional
     } catch (Exception $e) {
         // Maneja cualquier excepción lanzada durante la creación o el procesamiento de la encuesta
