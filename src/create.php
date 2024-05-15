@@ -8,7 +8,7 @@
 <body>
     <form action="?view=options" method="post">
         <input type="text" name="titile" require>
-        <input type="submit" value="Crear Encuesta">
+        <input type="submit" value="Next">
     </form>
 </body>
 </html>
