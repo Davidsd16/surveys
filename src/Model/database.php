@@ -19,7 +19,7 @@ class Database{
         $this->host = 'localhost';
         $this->db = 'surveys';
         $this->user = 'root';
-        $this->password = 'root';
+        $this->password = 'divad';
         $this->charset = 'utf8mb4';
     }
 

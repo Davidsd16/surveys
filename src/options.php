@@ -1,31 +1,38 @@
 <?php
 
-require_once 'vendor/autoload.php'; // Incluye el archivo de autocarga de Composer para cargar las clases
+use Lenovo\Encuestas\model\Encuesta;
 
-use Lenovo\Encuestas\model\Encuesta; // Importa la clase Encuesta del espacio de nombres especificado
+require_once 'vendor/autoload.php';
+
 
 // Verifica si se ha enviado el formulario con el título y al menos una opción
-if (isset($_POST['title']) && isset($_POST['option'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_POST['option'])) {
     $title = $_POST['title'];
     $options = $_POST['option']; 
 
-    // Crea una nueva instancia de la clase Encuesta con el título proporcionado
-    $survey = new Encuesta($title);
+    try {
+        // Crea una nueva instancia de la clase Encuesta con el título proporcionado
+        $survey = new Encuesta($title);
 
-    // Guarda la encuesta en la base de datos
-    $survey->save();
+        // Guarda la encuesta en la base de datos
+        $survey->save();
 
-    // Inserta las opciones en la encuesta recién creada
-    $survey->insertOptions($options);
+        // Inserta las opciones en la encuesta recién creada
+        $survey->insertOptions($options);
 
-    // Redirige al usuario a una página de éxito o a la página principal después de procesar el formulario
-    header("Location: home.php"); 
-    exit(); // Detiene la ejecución del script después de redirigir para evitar ejecución adicional
+        // Redirige al usuario a una página de éxito o a la página principal después de procesar el formulario
+        header("Location: home.php");
+        exit(); // Detiene la ejecución del script después de redirigir para evitar ejecución adicional
+    } catch (Exception $e) {
+        // Maneja cualquier excepción lanzada durante la creación o el procesamiento de la encuesta
+        echo 'Error: ' . $e->getMessage();
+    }
 } else {
     // Si el título u opciones no están presentes en el formulario, carga la página de inicio
     require 'home.php';
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
