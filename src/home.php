@@ -7,5 +7,6 @@
 </head>
 <body>
     <h1>Home</h1>
+    <a href="?view=create">Create new poll</a>
 </body>
 </html>

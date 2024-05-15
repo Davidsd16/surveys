@@ -7,7 +7,7 @@
 </head>
 <body>
     <form action="?view=options" method="post">
-        <input type="text" name="titile" require>
+        <input type="text" name="title" require>
         <input type="submit" value="Next">
     </form>
 </body>

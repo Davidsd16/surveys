@@ -8,7 +8,7 @@ require_once 'vendor/autoload.php';
 // Verifica si se ha enviado el formulario con el título y al menos una opción
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_POST['option'])) {
     $title = $_POST['title'];
-    $options = $_POST['option']; 
+    $options = $_POST['option'];    
 
     try {
         // Crea una nueva instancia de la clase Encuesta con el título proporcionado
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_P
     }
 } else {
     // Si el título u opciones no están presentes en el formulario, carga la página de inicio
-    require 'home.php';
+    require 'src/home.php';
 }
 ?>
 
