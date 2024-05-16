@@ -194,4 +194,8 @@ class Encuesta extends Database {
     public function getUUID() {
         return $this->uuid;
     }
+
+    public function getOptions() {
+        return $this->options;
+    }
 }
