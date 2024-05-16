@@ -31,30 +31,23 @@ if (isset($_GET['id'])) {
     <title>View</title>
 </head>
 <body>
-    <h1>
-        <?php 
-        // Mostrar el título de la encuesta si se ha encontrado, de lo contrario, mostrar un mensaje de error
-        if ($poll) {
-            echo htmlspecialchars($poll->getTitle()); 
-        } else {
-            echo 'Encuesta no encontrada';
-        }
-        ?>
-    </h1>
+    <h1><?php echo $poll->getTitle(); ?> </h1>
     <?php
-    // Si se ha encontrado la encuesta, mostrar las opciones de votación
-    if ($poll) {
         $options = $poll->getOptions();
         foreach ($options as $option) {
-            ?>
-            <div class="vote-item">
-                <form action="?view=view&id=<?php echo htmlspecialchars($uuid); ?>" method="post">
-                    <input type="submit" value="vote for <?php echo htmlspecialchars($option['title']); ?>">
-                </form>
-            </div>
-            <?php
-        }
-    }
+            
     ?>
+
+        <div class="vote-item">
+            <form action="?view=view&id=<?php echo htmlspecialchars($uuid); ?>" method="post">
+                <input type="submit" value="vote for <?php echo htmlspecialchars($option['title']); ?>">
+            </form>
+        </div>
+    <?php
+
+        }
+    
+    ?>
+
 </body>
 </html>
